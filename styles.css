@@ -1,0 +1,17 @@
+#screen {
+	border: 5px solid black;
+	width: 500px;
+	height: 100px;
+};
+
+#buttons {
+	border: 2px solid blue;
+}
+
+button {
+	width: 60px;
+}
+
+#result {
+
+}
