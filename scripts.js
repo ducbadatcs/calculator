@@ -1,5 +1,7 @@
-function widthAlign(numSquares) {
-    for (let i = 10; i > 0; i--) {
+function widthAlign(numSquares){
+    let w = parseInt(Math.sqrt(numSquares));
+    //console.log(w);
+    for (i = w; i > 0; i--) {
         if (numSquares % i == 0) {
             return i;
         }
@@ -7,50 +9,77 @@ function widthAlign(numSquares) {
     return 1; // fallback value if no suitable width is found
 }
 
-var buttons = document.getElementById("buttons");
+var buttonDisplay = document.getElementById("buttondisplay");
 var scr = document.getElementById("screen");
 var res = document.getElementById("result");
 var buttonList = "1234567890.+-*/=()<C";
+var buttonWidth = 100;
+
+
 console.log(buttonList.length);
-console.log(widthAlign(buttons.length));
+console.log(widthAlign(buttonList.length));
 
 var inputOn = 1;
 var buttonsPerLine = widthAlign(buttonList.length);
-//buttons.style.gridTemplateColumns = `repeat(${buttonsPerLine}, ${Number(buttons.style.width) / buttonsPerLine}px)`;
-//buttons.style.gridTemplateColumns = `repeat(4, ${Number(buttons.style.width) / buttonsPerLine}px)`
-console.log(document.getElementsByClassName("buttoncalc"));
-for (let i of document.getElementsByClassName("buttoncalc")){
+
+
+buttonDisplay.style.gridTemplateColumns = `repeat(${buttonsPerLine}, ${Number(buttonDisplay.style.width) / buttonsPerLine}px)`;
+buttonDisplay.style.gap = "100px";
+for (let i of buttonList){
+    let but = document.createElement("button");
+    but.textContent = i;
+    but.className = "calcbutton";
     
-    if (i.textContent === "="){
-        i.addEventListener("click", (f) => {
+    but.style.width = buttonWidth.toString() + "px"
+    //but.style.width = (Number(buttonDisplay.style.width) - buttonsPerLine * parseInt(buttonDisplay.style.gap)) / buttonsPerLine
+    if (i == "="){
+        but.addEventListener("click", (f) => {
             let result = "";
             try {
-                result = eval(scr.textContent.replace("x", "*").replace("%", "/100")).toString();
+                //the space is to invalidate the input for something like 5%3 
+                result = eval(scr.textContent.replace("x", "*").replace("%", "/100 ")).toString();
             }
             catch (e){
                 if (e instanceof Error) result = "Invalid input!"
             }
-            scr.textContent = result;
+            res.textContent = result;
 			inputOn = 0;
         })
     }
-    else if (i.textContent === "C"){
-        i.addEventListener("click", (f) => {
+    else if (i == "C"){
+        but.style.color = "white";
+        but.style.backgroundColor = "blue";
+        but.addEventListener("click", (f) => {
             scr.textContent = "";
 			inputOn = 1;
         })
     }
-	else if (i.textContent === "<"){
-		i.addEventListener("click", () => {
+	else if (i == "<"){
+		but.addEventListener("click", () => {
 			let scrtext = scr.textContent;
 			if (scr.textContent != "") scr.textContent = scrtext.substring(0, scrtext.length - 1);
 		})
 	}
-    else {
-        i.addEventListener("click", (f) => {
+    else if (!isNaN(i)){
+        but.style.color = "white";
+        but.style.backgroundColor = "black";
+        but.addEventListener("click", (f) => {
             
-			if (!inputOn){scr.textContent = i.textContent; inputOn = 1;}
-			else scr.textContent += i.textContent;
+			if (!inputOn){scr.textContent = i; inputOn = 1;}
+			else scr.textContent += i;
         })
     }
+    else {
+        but.style.color = "white";
+        but.style.backgroundColor = "gray";
+        but.addEventListener("click", (f) => {
+            
+			if (!inputOn){scr.textContent = i; inputOn = 1;}
+			else scr.textContent += i;
+        })
+    }
+    let butbox = document.createElement("div");
+    
+    butbox.appendChild(but);
+    buttonDisplay.appendChild(butbox);
 }

@@ -1,20 +1,35 @@
+#display{
+	display: flex;
+	width: 500px;
+	flex-direction: column;
+	height: 70px;
+	margin: auto;
+}
+
 #screen {
 	border: 5px solid black;
-	width: 500px;
-	height: 100px;
+	display: flex;
 	
-}
-
-#buttons {
-	border: 2px solid blue;
-	display: grid;
-	width: fit-content
-}
-
-button {
-	width: 60px;
+	flex: 1 1 auto;
 }
 
 #result {
+	
+	display: flex;
+	flex: 1 1 auto;
+	border: 5px solid violet;
+	align-content: flex-end;
+}
 
+#buttondisplay {
+	border: 2px solid blue;
+	display: grid;
+	width: 500px;
+	margin: auto;
+	gap: 20px;
+}
+
+.calcbutton {
+	width: 100px;
+	
 }
