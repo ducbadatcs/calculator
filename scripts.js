@@ -22,9 +22,9 @@ console.log(widthAlign(buttonList.length));
 var inputOn = 1;
 var buttonsPerLine = widthAlign(buttonList.length);
 
-
+res.textContent = "0" //string to fix the error of it collapsing, not like I actually know how to fix the issue
 buttonDisplay.style.gridTemplateColumns = `repeat(${buttonsPerLine}, ${Number(buttonDisplay.style.width) / buttonsPerLine}px)`;
-buttonDisplay.style.gap = "100px";
+buttonDisplay.style.gap = "0px 100px";
 for (let i of buttonList){
     let but = document.createElement("button");
     but.textContent = i;
@@ -51,6 +51,7 @@ for (let i of buttonList){
         but.style.backgroundColor = "blue";
         but.addEventListener("click", (f) => {
             scr.textContent = "";
+            res.textContent = "";
 			inputOn = 1;
         })
     }
